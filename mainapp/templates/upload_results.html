@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload and Results - Cataract Detection</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    {% load static %}
+    <style>
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .results-container img {
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .results-container .text {
+            text-align: center;
+            line-height: 1.8;
+            color: black !important;
+        }
+
+        .note-section {
+            margin-top: 20px;
+        }
+
+        .note-section textarea {
+            width: 100%;
+            min-height: 100px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: vertical;
+        }
+
+        .navigation-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="container-fluid">
+        <ul>
+            <li><img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" style="height: 100px;"></li>
+            <li><strong>Upload and Results</strong></li>
+        </ul>
+        <ul>
+            <li><strong>Hello Dr. {{ doctor_name }}</strong></li>
+            <li><small>Patient: {{ patient_name }}</small></li>
+        </ul>
+        <br>
+    </nav>
+    
+
+
+
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Upload Eye Image</h2>
+                    <h3>Analyze the patient's condition</h3>
+                </hgroup>
+
+                <!-- Upload Form -->
+                <form method="POST" enctype="multipart/form-data" action="{% url 'upload_results' %}">
+                    {% csrf_token %}
+                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+                    <button type="submit" class="primary">Analyze</button>
+                </form>
+
+                {% if uploaded_image %}
+                <h3>Results:</h3>
+                <div class="results-container">
+                    <img src="{{ uploaded_image }}" alt="Uploaded Eye Image">
+                    <p><strong>Diagnosis:</strong> {{ diagnosis }}</p>
+                    <p><strong>Severity:</strong> {{ severity }}</p>
+                </div>
+
+                <!-- Doctor's Notes Section -->
+                <div class="note-section">
+                    <h4>Doctor's Notes</h4>
+                    <form method="POST" action="{% url 'upload_results' %}">
+                        {% csrf_token %}
+                        <textarea id="doctor_notes" name="doctor_notes" placeholder="Enter doctor's notes here..." required></textarea>
+                        <button type="submit" class="primary">Save Notes</button>
+                    </form>
+                </div>
+
+                {% endif %}
+            
+            </section>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="navigation-links">
+            <a href="{% url 'doctor_dashboard' %}" role="button" class="secondary">Back to Dashboard</a>
+            <a href="{% url 'index' %}" role="button" class="secondary">Log Out</a>
+        </div>
+
+        <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+    </main>
+</body>
+</html>

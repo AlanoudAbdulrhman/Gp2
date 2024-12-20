@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doctor Dashboard - Cataract Detection</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    {% load static %}
+    <style>
+        .form-section {
+            width: 100%; 
+            margin-top: 20px;
+        }
+
+        .checkbox-group {
+            margin-top: 20px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-button {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .medical-record-link {
+            color: #1095c1f5; 
+            font-weight: bold; 
+            text-decoration: none;
+        }
+
+        .medical-record-link:hover {
+            text-decoration: underline; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" style="height: 100px;"></li>
+            <li><strong>Doctor Dashboard</strong></li>
+        </ul>
+        <ul>
+            <li><strong>Hello Dr. {{ doctor_name }}</strong></li>
+            <li><a href="{% url 'medical_record' %}" class="medical-record-link">Medical Records</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="form-section">
+            <hgroup>
+                <h2>Enter Patient Details</h2>
+                <h3>Input the patient's file number and medical details</h3>
+            </hgroup>
+            <form id="patientForm" method="POST">
+                {% csrf_token %}
+
+                <label for="fileNumber">Patient File Number:</label>
+                <input type="text" id="fileNumber" name="fileNumber" placeholder="Patient File Number" aria-label="Patient File Number" required>
+                <button type="submit" form="patientForm" class="primary">Submit</button>
+            </form>
+        </section>
+
+        <div class="logout-button">
+            <a href="{% url 'index' %}" role="button" class="secondary">Log Out</a>
+        </div>
+
+        <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+    </main>
+</body>
+</html>

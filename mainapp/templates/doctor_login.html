@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page - Cataract Detection</title>
+
+    <!-- Pico CSS for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+
+    {% load static %}
+    <style>
+        /* Optional Custom Styles */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #1095c1;
+        }
+
+        footer a {
+            color: #1095c1;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: #1095c1; /* Gold on hover */
+        }
+
+        /* Unified Button Styles for Consistency */
+        button.primary, a.primary {
+            display: inline-block; /* Ensure both button and anchor have similar behavior */
+            padding: 10px 20px;
+            background-color: #1095c1; /* Custom blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button.primary:hover, a.primary:hover {
+            background-color: #1095c1; /* Lighter blue on hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        button.primary:active, a.primary:active {
+            background-color: #1095c1; /* Darker blue on click */
+            transform: scale(0.95); /* Button press effect */
+        }
+
+        .admin-login {
+            text-align: center; /* Center align the admin login button */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" style="height: 100px;"></li>
+            <li><strong>Login</strong></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Login</h2>
+                    <h3>Enter your credentials</h3>
+                </hgroup>
+                <!-- Doctor Login Form -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="usersId" name="usersId" placeholder="User Id" aria-label="usersId" required>
+                    <input type="password" id="password" name="password" placeholder="Password" aria-label="Password" required>
+                    <button type="submit" class="primary">Log In</button>
+                </form>
+                
+                <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

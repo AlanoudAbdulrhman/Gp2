@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Medical Records</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    {% load static %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        table th {
+            background-color: #1095c1f5;
+        }
+
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .nav-link {
+            color: #1095c1f5; 
+            font-weight: bold; 
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline; 
+        }
+
+        .logo {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav class="container-fluid">
+    <img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" class="logo">
+    <a href="{% url 'doctor_dashboard' %}" class="nav-link">Back to Dashboard</a>
+</nav>
+<main class="container">
+    <div class="table-container">
+        <hgroup>
+            <h2>Medical Records</h2>
+            <h3>Details of all registered patients</h3>
+        </hgroup>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>File Number</th>
+                    <th>AI Diagnosis</th>
+                    <th>Age</th>
+                    <th>Intraocular Pressure</th>
+                    <th>Visual Acuity Test</th>
+                    <th>Chronic Diseases</th>
+                    <th>Medications</th>
+                    <th>Doctor notes</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.file_number }}</td>
+                    <td>{{ patient.ai_diagnosis }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.iop }}</td>
+                    <td>{{ patient.visual_acuity }}</td>
+                    <td>{{ patient.chronic_diseases }}</td>
+                    <td>{{ patient.medications }}</td>
+                    <td>{{ patient.doctor_notes }}</td>
+                    <td><img src="{{ patient.result_image }}" alt="Result Image" /></td>
+                </tr>                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+</main>
+</body>
+</html>

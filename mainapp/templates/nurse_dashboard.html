@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nurse Dashboard - Cataract Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    {% load static %}
+    <style>
+        .form-section {
+            width: 100%; 
+            margin-top: 20px;
+        }
+
+        .checkbox-group {
+            margin-top: 20px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-button {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .medical-record-link {
+            color: #1095c1f5; 
+            font-weight: bold; 
+            text-decoration: none;
+        }
+
+        .medical-record-link:hover {
+            text-decoration: underline; 
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" style="height: 100px;"></li>
+            <li><strong>Nurse Dashboard</strong></li>
+        </ul>
+        <ul>
+            <li><strong>Hello {{ nurse_name }}</strong></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="form-section">
+            <hgroup>
+                <h2>Enter Patient Details</h2>
+                <h3>Input the patient's file number and medical details</h3>
+            </hgroup>
+            
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="message {{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Patient Form -->
+            <form method="POST">
+                {% csrf_token %}
+                <label for="fileNumber">Patient File Number:</label>
+                <input type="text" id="fileNumber" name="fileNumber" placeholder="Patient File Number" aria-label="Patient File Number" required>
+
+                <label for="doctorid">Doctor ID:</label>
+                <input type="text" id="doctorid" name="doctorid" placeholder="Doctor ID" aria-label="Doctor ID" required>
+                
+                <label for="VA_od">Visual Acuity OD:</label>
+                <input type="text" id="VA_od" name="VA_od" placeholder="Enter VA OD" aria-label="VA OD">
+
+                <label for="VA_os">Visual Acuity OS:</label>
+                <input type="text" id="VA_os" name="VA_os" placeholder="Enter VA OS" aria-label="VA OS">
+
+                <label for="lop_od">Lop OD:</label>
+                <input type="text" id="lop_od" name="lop_od" placeholder="Enter Lop OD" aria-label="Lop OD">
+
+                <label for="lop_os">Lop OS:</label>
+                <input type="text" id="lop_os" name="lop_os" placeholder="Enter Lop OS" aria-label="Lop OS">
+
+                <label for="medications">Medications:</label>
+                <input type="text" id="medications" name="medications" placeholder="medications" aria-label="medications">
+
+                <label for="diseases">Diseases:</label>
+                <input type="text" id="diseases" name="diseases" placeholder="diseases" aria-label="diseases">
+
+                <button type="submit" class="primary">Submit</button>
+            </form>
+        </section>
+
+        <div class="logout-button">
+            <a href="{% url 'index' %}" role="button" class="secondary">Log Out</a>
+        </div>
+
+        <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+    </main>
+</body>
+</html>

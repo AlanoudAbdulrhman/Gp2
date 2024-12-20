@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cataract Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        /* Navbar Styling */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav img {
+            height: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul:first-child {
+            flex: 1;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .logout-button a {
+            color: white !important; /* Make the logout button text white */
+            font-weight: bold;
+        }
+
+        .logout-button a:hover {
+            text-decoration: underline;
+        }
+
+        .container-fluid ul li a {
+            font-weight: bold;
+            color: #1095c1f5;
+            text-decoration: none;
+        }
+
+        .container-fluid ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="container-fluid">
+        <ul>
+            <!-- Logo -->
+            <li>
+                <img src="{% static 'logo.png' %}" alt="Cataract Detection Logo">
+            </li>
+            <!-- Admin Dashboard Title -->
+            <li><strong>Admin Dashboard</strong></li>
+        </ul>
+        <ul>
+            <!-- Admin Greeting -->
+            <li><strong>Hello Eng. {{ admin_name }}</strong></li>
+            <!-- Logout Button -->
+            <li class="logout-button">
+                <a href="{% url 'index' %}" role="button" class="secondary">Log Out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+    <main class="container">
+        <ul class="admin-links">
+            <li><a href="{% url 'upload_model' %}">Upload Model</a></li>
+            <li><a href="{% url 'model_history' %}">View Model History</a></li>
+            <li><a href="{% url 'add_user' %}">Add Users</a></li>
+            <li><a href="{% url 'doctor_and_nurse_info' %}">View Users' Information</a></li>
+        </ul>
+    </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landing Page - Cataract Detection</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main.container {
+            flex: 1;
+        }
+
+        footer {
+            margin: 0;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><img src="{% static 'logo.png' %}" alt="Cataract Detection Logo" style="height: 100px;"></li>
+            <li><strong>ClearSight</strong></li>
+        </ul>
+        <ul>
+            <li><a href="{% url 'doctor_login' %}">Log In</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Welcome to the Cataract Detection and Grading System</h2>
+                    <h3>Accurate Detection and Grading for Cataracts</h3>
+                </hgroup>
+                <p>This system is designed to help doctors efficiently detect and grade cataracts using advanced image analysis.</p>
+                <p><a href="{% url 'doctor_login' %}" role="button">Log In</a></p>
+                <small><a href="{% url 'contact_us' %}">Contact Us</a></small>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

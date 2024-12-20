@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Model History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        /* Navbar Styling */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav img {
+            height: 100px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul:first-child {
+            flex: 1;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .logout-button a {
+            color: white !important; /* Make the logout button text white */
+            font-weight: bold;
+        }
+
+        .logout-button a:hover {
+            text-decoration: underline;
+        }
+
+        .container-fluid ul li a {
+            font-weight: bold;
+            color: #1095c1f5;
+            text-decoration: none;
+        }
+
+        .container-fluid ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="container-fluid">
+        <ul>
+            <!-- Logo -->
+            <li>
+                <img src="{% static 'logo.png' %}" alt="Cataract Detection Logo">
+            </li>
+            <!-- Admin Dashboard Title (Clickable) -->
+            <li>
+                <strong>Admin Dashboard</strong>
+            </li>
+        </ul>
+        <ul>
+            <!-- Admin Greeting -->
+            <li><strong>Hello Eng. {{ admin_name }}</strong></li>
+            <!-- Logout Button -->
+            <li class="logout-button">
+                <a href="{% url 'index' %}" role="button" class="secondary">Log Out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="admin-section">
+            <hgroup>
+                <h2>Model History</h2>
+                <h3>Details of previously uploaded models</h3>
+            </hgroup>
+            <table class="model-table">
+                <thead>
+                    <tr>
+                        <th>Model Name</th>
+                        <th>Version</th>
+                        <th>Upload Date</th>
+                        <th>Admin Name</th>
+                        <th>Action</th> <!-- New column for the download button -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model in models %}
+                    <tr>
+                        <td>{{ model.model_name }}</td>
+                        <td>{{ model.model_version }}</td>
+                        <td>{{ model.updated_date }}</td>
+                        <td>{{ model.admin_name }}</td>
+                        <td>
+                            <a href="{{ model.model_path }}" download class="primary">Download Model</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
